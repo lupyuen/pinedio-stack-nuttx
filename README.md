@@ -1,8 +1,8 @@
 # PineDio Stack BL604 RISC-V Board on Apache NuttX RTOS
 
-Apache NuttX RTOS, ST7789 Driver and LVGL Library run OK on Pine64's PineDio Stack BL604!
+Apache NuttX RTOS, ST7789 Driver and LVGL Graphics Library all run OK on Pine64's PineDio Stack BL604!
 
-Source code...
+Source code is here...
 
 -   [lupyuen/incubator-nuttx (pinedio branch)](https://github.com/lupyuen/incubator-nuttx/tree/pinedio)
 
