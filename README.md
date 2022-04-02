@@ -10,6 +10,16 @@ https://github.com/lupyuen/incubator-nuttx-apps/tree/pinedio
 
 TODO
 
+[PineDio Stack Schematic (2021-09-15)](pinedio_stack_v1_0-2021_09_15-a.pdf)
+
+| Function | GPIO |
+| --- | --- |
+| SPI MOSI | 13 |
+| SPI MISO | 0  |
+| SPI SCK  | 11 |
+
+[(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/include/board.h#L99-L105)
+
 ## SPI Device Table
 
 TODO
