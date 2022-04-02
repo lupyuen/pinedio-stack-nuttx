@@ -46,9 +46,15 @@ To prevent crosstalk, we need to flip the SPI Chip Select for each SPI Device...
 
 [(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/include/board.h#L106-L127)
 
-TODO
+NuttX auto-assigns 0x40000 as the SPI Device ID for ST7789 Display. [(See this)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/include/nuttx/spi/spi.h#L459)
 
-Which is represented in NuttX as an int array...
+We assigned the other SPI Device IDs ourselves.
+
+Device ID -1 is meant as a fallthrough to catch all SPI Devices that don't match the Device IDs. This also works for simple SPI setups where the Device ID is not needed.
+
+## SPI Device Table
+
+We represent the SPI Device Table in NuttX as an int array...
 
 | SPI Device | Device ID | Swap MISO/MOSI | Chip Select | 
 | :--------- | :-------: | :------------: | :---------: |
@@ -59,9 +65,7 @@ Which is represented in NuttX as an int array...
 
 [(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/src/bl602_bringup.c#L112-L133)
 
-## SPI Device Table
-
-TODO
+Here's the source code...
 
 ```c
 #ifdef CONFIG_BL602_SPI0
@@ -89,6 +93,8 @@ static const int32_t bl602_device_table[] =
 ```
 
 [(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/src/bl602_bringup.c#L112-L133)
+
+The columns of the SPI Device Table...
 
 ```c
 /* Columns in the SPI Device Table */
