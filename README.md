@@ -2,23 +2,52 @@
 
 TODO
 
-https://github.com/lupyuen/incubator-nuttx/tree/pinedio
+Source code...
 
-https://github.com/lupyuen/incubator-nuttx-apps/tree/pinedio
+-   [lupyuen/incubator-nuttx (pinedio branch)](https://github.com/lupyuen/incubator-nuttx/tree/pinedio)
+
+-   [lupyuen/incubator-nuttx-apps (pinedio branch)](https://github.com/lupyuen/incubator-nuttx-apps/tree/pinedio)
 
 # Shared SPI Bus
 
 TODO
 
-[PineDio Stack Schematic (2021-09-15)](pinedio_stack_v1_0-2021_09_15-a.pdf)
+PineDio Stack Schematic...
+
+-   [PineDio Stack Schematic (2021-09-15)](pinedio_stack_v1_0-2021_09_15-a.pdf)
+
+SPI Bus...
 
 | Function | GPIO |
-| --- | --- |
+| :------- | :---: |
 | SPI MOSI | 13 |
 | SPI MISO | 0  |
 | SPI SCK  | 11 |
+| SPI CS _(Unused)_ | 8 |
 
 [(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/include/board.h#L99-L105)
+
+SPI Devices...
+
+| SPI Device | Device ID | Swap MISO/MOSI | Chip Select | 
+| :--------- | :-------: | :------------: | :---------: |
+| ST7789 Display     | 0x40000 | No  | 20
+| SX1262 Transceiver | 1       | Yes | 15
+| SPI Flash          | 2       | Yes | 14
+| _(Default Device)_ | -1      | Yes | 8 _(Unused)_
+
+[(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/include/board.h#L106-L127)
+
+Which is represented in NuttX as an int array...
+
+| SPI Device | Device ID | Swap MISO/MOSI | Chip Select | 
+| :--------- | :-------: | :------------: | :---------: |
+| _ST7789 Display_     | 0x40000 | 0 | 20
+| _SX1262 Transceiver_ | 1       | 1 | 15
+| _SPI Flash_          | 2       | 1 | 14
+| _(Default Device)_   | -1      | 1 | 8
+
+[(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/src/bl602_bringup.c#L112-L133)
 
 ## SPI Device Table
 
