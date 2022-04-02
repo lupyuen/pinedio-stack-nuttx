@@ -10,6 +10,48 @@ https://github.com/lupyuen/incubator-nuttx-apps/tree/pinedio
 
 TODO
 
+## SPI Device Table
+
+TODO
+
+```c
+#ifdef CONFIG_BL602_SPI0
+/* SPI Device Table: SPI Device ID, Swap MISO/MOSI, Chip Select */
+
+static const int32_t bl602_device_table[] =
+{
+#ifdef BOARD_LCD_DEVID  /* ST7789 Display */
+  BOARD_LCD_DEVID, BOARD_LCD_SWAP, BOARD_LCD_CS,
+#endif  /* BOARD_LCD_DEVID */
+
+#ifdef BOARD_SX1262_DEVID  /* LoRa SX1262 */
+  BOARD_SX1262_DEVID, BOARD_SX1262_SWAP, BOARD_SX1262_CS,
+#endif  /* BOARD_SX1262_DEVID */
+
+#ifdef BOARD_FLASH_DEVID  /* SPI Flash */
+  BOARD_FLASH_DEVID, BOARD_FLASH_SWAP, BOARD_FLASH_CS,
+#endif  /* BOARD_FLASH_DEVID */
+
+  /* Must end with Default SPI Device */
+
+  -1, 1, BOARD_SPI_CS,  /* Swap MISO/MOSI */
+};
+#endif  /* CONFIG_BL602_SPI0 */
+```
+
+[(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/src/bl602_bringup.c#L112-L133)
+
+```c
+/* Columns in the SPI Device Table */
+
+#define DEVID_COL 0  /* SPI Device ID */
+#define SWAP_COL  1  /* 1 if MISO/MOSI should be swapped, else 0 */
+#define CS_COL    2  /* SPI Chip Select Pin */
+#define NUM_COLS  3  /* Number of columns in SPI Device Table */
+```
+
+[(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/include/board.h#L36-L41)
+
 ## Pin Definitions
 
 TODO
@@ -48,22 +90,15 @@ TODO
 
 [(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/include/board.h#L99-L128)
 
-## SPI Device Table
+## Select / Deselect SPI Device
 
 TODO
 
-```c
-/* Columns in the SPI Device Table */
+[bl602_spi_get_device](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/src/bl602_bringup.c#L210-L239)
 
-#define DEVID_COL 0  /* SPI Device ID */
-#define SWAP_COL  1  /* 1 if MISO/MOSI should be swapped, else 0 */
-#define CS_COL    2  /* SPI Chip Select Pin */
-#define NUM_COLS  3  /* Number of columns in SPI Device Table */
-```
+[bl602_spi_deselect_devices](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/src/bl602_bringup.c#L178-L208)
 
-[(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/include/board.h#L36-L41)
-
-## Select / Deselect SPI Device
+[bl602_spi_validate_devices](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/src/bl602_bringup.c#L140-L176)
 
 ```c
 static void bl602_spi_select(struct spi_dev_s *dev, uint32_t devid,
@@ -104,6 +139,8 @@ static void bl602_spi_select(struct spi_dev_s *dev, uint32_t devid,
 [(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/arch/risc-v/src/bl602/bl602_spi.c#L439-L471)
 
 ## SPI Command / Data
+
+TODO
 
 ```c
 #ifdef CONFIG_SPI_CMDDATA
