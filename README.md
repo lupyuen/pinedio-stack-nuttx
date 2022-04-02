@@ -24,7 +24,7 @@ The SPI Bus is shared between...
 
 ![Shared SPI Bus on PineDio Stack BL604](https://lupyuen.github.io/images/pinedio-spi2.jpg)
 
-Here are the BL604 GPIO Numbers shared by devices on the SPI Bus...
+Here are the BL604 GPIO Numbers for the shared SPI Bus...
 
 | Function | GPIO |
 | :------- | :---: |
@@ -251,7 +251,9 @@ static int bl602_spi_cmddata(struct spi_dev_s *dev,
 
 [(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/arch/risc-v/src/bl602/bl602_spi.c#L726-L774)
 
-# Deselect All SPI Devices
+## Deselect All SPI Devices
+
+TODO
 
 ```c
 static void bl602_spi_init(struct spi_dev_s *dev)
