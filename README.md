@@ -1,6 +1,6 @@
 # PineDio Stack BL604 RISC-V Board on Apache NuttX RTOS
 
-TODO
+Apache NuttX RTOS, ST7789 Driver and LVGL Library run OK on Pine64's PineDio Stack BL604!
 
 Source code...
 
@@ -10,13 +10,21 @@ Source code...
 
 # Shared SPI Bus
 
-TODO
-
-PineDio Stack Schematic...
+Acording to the PineDio Stack Schematic...
 
 -   [PineDio Stack Schematic (2021-09-15)](pinedio_stack_v1_0-2021_09_15-a.pdf)
 
-SPI Bus...
+The SPI Bus is shared between...
+
+-   ST7789 Display Controller
+
+-   Semtech SX1262 LoRa Transceiver
+
+-   SPI Flash
+
+![Shared SPI Bus on PineDio Stack BL604](https://lupyuen.github.io/images/pinedio-spi2.jpg)
+
+Here are the BL604 GPIO Numbers shared by devices on the SPI Bus...
 
 | Function | GPIO |
 | :------- | :---: |
@@ -27,7 +35,7 @@ SPI Bus...
 
 [(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/include/board.h#L99-L105)
 
-SPI Devices...
+To prevent crosstalk, we need to flip the SPI Chip Select for each SPI Device...
 
 | SPI Device | Device ID | Swap MISO/MOSI | Chip Select | 
 | :--------- | :-------: | :------------: | :---------: |
@@ -37,6 +45,8 @@ SPI Devices...
 | _(Default Device)_ | -1      | Yes | 8 _(Unused)_
 
 [(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/include/board.h#L106-L127)
+
+TODO
 
 Which is represented in NuttX as an int array...
 
