@@ -2,6 +2,10 @@
 
 TODO
 
+https://github.com/lupyuen/incubator-nuttx/tree/pinedio
+
+https://github.com/lupyuen/incubator-nuttx-apps/tree/pinedio
+
 # Shared SPI Bus
 
 TODO
