@@ -2,6 +2,26 @@
 
 TODO
 
+# Shared SPI Bus
+
+TODO
+
+# ST7789 Display
+
+TODO
+
+# SX1262 LoRa Transceiver
+
+TODO
+
+# SPI Flash
+
+TODO
+
+# Output Log
+
+TODO
+
 ```text
 gpio_pin_register: Registering /dev/gpio0
 gpio_pin_register: Registering /dev/gpio1
