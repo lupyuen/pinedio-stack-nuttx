@@ -63,6 +63,159 @@ TODO
 
 [(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/include/board.h#L36-L41)
 
+## Select / Deselect SPI Device
+
+```c
+static void bl602_spi_select(struct spi_dev_s *dev, uint32_t devid,
+                             bool selected)
+{
+  const int32_t *spidev;
+
+  spiinfo("devid: %lu, CS: %s\n", devid, selected ? "select" : "free");
+
+  /* get device from SPI Device Table */
+
+  spidev = bl602_spi_get_device(devid);
+  DEBUGASSERT(spidev != NULL);
+
+  /* swap MISO and MOSI if needed */
+
+  if (selected)
+    {
+      bl602_swap_spi_0_mosi_with_miso(spidev[SWAP_COL]);
+    }
+
+  /* set Chip Select */
+
+  bl602_gpiowrite(spidev[CS_COL], !selected);
+
+#ifdef CONFIG_SPI_CMDDATA
+  /* revert MISO and MOSI from GPIO Pins to SPI Pins */
+
+  if (!selected)
+    {
+      bl602_configgpio(BOARD_SPI_MISO);
+      bl602_configgpio(BOARD_SPI_MOSI);
+    }
+#endif
+}
+```
+
+[(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/arch/risc-v/src/bl602/bl602_spi.c#L439-L471)
+
+## SPI Command / Data
+
+```c
+#ifdef CONFIG_SPI_CMDDATA
+static int bl602_spi_cmddata(struct spi_dev_s *dev,
+                              uint32_t devid, bool cmd)
+{
+  spiinfo("devid: %" PRIu32 " CMD: %s\n", devid, cmd ? "command" :
+          "data");
+
+  if (devid == SPIDEV_DISPLAY(0))
+    {
+      const int32_t *spidev;
+      gpio_pinset_t dc;
+      gpio_pinset_t gpio;
+      int ret;
+
+      /* get device from SPI Device Table */
+
+      spidev = bl602_spi_get_device(devid);
+      DEBUGASSERT(spidev != NULL);
+
+      /* if MISO/MOSI are swapped, DC is MISO, else MOSI */
+
+      dc = spidev[SWAP_COL] ? BOARD_SPI_MISO : BOARD_SPI_MOSI;
+
+      /* reconfigure DC from SPI Pin to GPIO Pin */
+
+      gpio = (dc & GPIO_PIN_MASK)
+             | GPIO_OUTPUT | GPIO_PULLUP | GPIO_FUNC_SWGPIO;
+      ret = bl602_configgpio(gpio);
+      if (ret < 0)
+        {
+          spierr("Failed to configure MISO as GPIO\n");
+          DEBUGPANIC();
+
+          return ret;
+        }
+
+      /* set DC to high (data) or low (command) */
+
+      bl602_gpiowrite(gpio, !cmd);
+
+      return OK;
+    }
+
+  spierr("SPI cmddata not supported\n");
+  DEBUGPANIC();
+
+  return -ENODEV;
+}
+#endif
+```
+
+[(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/arch/risc-v/src/bl602/bl602_spi.c#L726-L774)
+
+# Deselect All SPI Devices
+
+```c
+static void bl602_spi_init(struct spi_dev_s *dev)
+{
+  struct bl602_spi_priv_s *priv = (struct bl602_spi_priv_s *)dev;
+  const struct bl602_spi_config_s *config = priv->config;
+
+  /* Initialize the SPI semaphore that enforces mutually exclusive access */
+
+  nxsem_init(&priv->exclsem, 0, 1);
+
+  bl602_configgpio(BOARD_SPI_CS);
+  bl602_configgpio(BOARD_SPI_MOSI);
+  bl602_configgpio(BOARD_SPI_MISO);
+  bl602_configgpio(BOARD_SPI_CLK);
+
+  /* set master mode */
+
+  bl602_set_spi_0_act_mode_sel(1);
+
+  /* swap MOSI with MISO to be consistent with BL602 Reference Manual */
+
+  bl602_swap_spi_0_mosi_with_miso(1);
+
+  /* spi cfg  reg:
+   * cr_spi_deg_en 1
+   * cr_spi_m_cont_en 0
+   * cr_spi_byte_inv 0
+   * cr_spi_bit_inv 0
+   */
+
+  modifyreg32(BL602_SPI_CFG, SPI_CFG_CR_M_CONT_EN
+              | SPI_CFG_CR_BYTE_INV | SPI_CFG_CR_BIT_INV,
+              SPI_CFG_CR_DEG_EN);
+
+  /* disable rx ignore */
+
+  modifyreg32(BL602_SPI_CFG, SPI_CFG_CR_RXD_IGNR_EN, 0);
+
+  bl602_spi_setfrequency(dev, config->clk_freq);
+  bl602_spi_setbits(dev, 8);
+  bl602_spi_setmode(dev, config->mode);
+
+  /* spi fifo clear */
+
+  modifyreg32(BL602_SPI_FIFO_CFG_0, SPI_FIFO_CFG_0_RX_CLR
+              | SPI_FIFO_CFG_0_TX_CLR, 0);
+
+  /* deselect all spi devices */
+
+  bl602_spi_deselect_devices();
+}
+```
+
+[(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/arch/risc-v/src/bl602/bl602_spi.c#L1191-L1240)
+
 # ST7789 Display
 
 TODO
