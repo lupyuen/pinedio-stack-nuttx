@@ -71,7 +71,7 @@ Here's the source code...
 #ifdef CONFIG_BL602_SPI0
 /* SPI Device Table: SPI Device ID, Swap MISO/MOSI, Chip Select */
 
-static const int32_t bl602_device_table[] =
+static const int32_t bl602_spi_device_table[] =
 {
 #ifdef BOARD_LCD_DEVID  /* ST7789 Display */
   BOARD_LCD_DEVID, BOARD_LCD_SWAP, BOARD_LCD_CS,
