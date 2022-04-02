@@ -56,7 +56,19 @@ Device ID -1 is meant as a fallthrough to catch all SPI Devices that don't match
 
 ## Swap MISO / MOSI
 
-TODO
+According to [BL602 Reference Manual](https://github.com/bouffalolab/bl_docs/blob/main/BL602_RM/en/BL602_BL604_RM_1.2_en.pdf) (Table 3.1 "Pin Description", Page 26)...
+
+-   GPIO 13 is MOSI
+-   GPIO 0 is MISO
+
+But due to a BL602 SPI quirk we need to Swap MISO and MOSI to get this behaviour. That's why the "Swap MISO / MOSI" column is marked "Yes" for SX1262 Transceiver and SPI Flash.
+
+ST7789 Display Controller is wired differently...
+
+-   ST7789 receives SPI Data on GPIO 0
+-   ST7789 Data / Command Pin is connected on GPIO 13
+
+The direction of SPI Data is flipped for ST7789. That's why the "Swap MISO / MOSI" column is marked "No" for ST7789 Display Controller.
 
 ## SPI Device Table
 
