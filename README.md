@@ -54,7 +54,7 @@ Device ID -1 is meant as a fallthrough to catch all SPI Devices that don't match
 
 ## SPI Device Table
 
-We represent the SPI Device Table in NuttX as an int array...
+We represent the SPI Device Table in NuttX as a flat int array...
 
 | SPI Device | Device ID | Swap MISO/MOSI | Chip Select | 
 | :--------- | :-------: | :------------: | :---------: |
