@@ -351,7 +351,7 @@ TODO
 
 ## SPI Mode
 
-TODO: SPI Mode depends on MISO / MOSI Swap
+BL602 / BL604 talks to ST7789 Display at SPI Mode 1 or 3 ... Depends whether MISO / MOSI are swapped
 
 ```c
 #ifdef CONFIG_BL602_SPI0
