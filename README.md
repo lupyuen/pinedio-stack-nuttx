@@ -145,7 +145,7 @@ Here are the functions for accessing the SPI Device Table...
 
 ## Pin Definitions
 
-TODO: Pin Definitions for PineDio Stack
+The SPI Device Table above refers to the following Pin Definitions...
 
 ```c
 /* SPI for PineDio Stack: Chip Select (unused), MOSI, MISO, SCK */
@@ -183,7 +183,7 @@ TODO: Pin Definitions for PineDio Stack
 
 ## Select / Deselect SPI Device
 
-TODO: This is how we select and deselect each SPI Device, by looking up the SPI Device Table...
+This is how we select and deselect each SPI Device, by looking up the SPI Device Table...
 
 ```c
 static void bl602_spi_select(struct spi_dev_s *dev, uint32_t devid,
