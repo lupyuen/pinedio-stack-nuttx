@@ -345,93 +345,9 @@ static void bl602_spi_init(struct spi_dev_s *dev)
 
 [(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/arch/risc-v/src/bl602/bl602_spi.c#L1191-L1240)
 
-# ST7789 Display
+## Test Shared SPI Bus
 
-TODO
-
-## SPI Mode
-
-BL602 / BL604 talks to ST7789 Display at SPI Mode 1 or 3 ... Depends whether MISO / MOSI are swapped
-
-```c
-#ifdef CONFIG_BL602_SPI0
-#include "../boards/risc-v/bl602/bl602evb/include/board.h"
-#endif  /* CONFIG_BL602_SPI0 */
-
-#ifdef CONFIG_LCD_ST7789
-
-/****************************************************************************
- * Pre-processor Definitions
- ****************************************************************************/
-
-/* Verify that all configuration requirements have been met */
-
-#ifdef CONFIG_BL602_SPI0
-#  if defined(BOARD_LCD_SWAP) && BOARD_LCD_SWAP == 0  /* If MISO/MOSI not swapped... */
-#    warning Using SPI Mode 1 for ST7789 on BL602 (MISO/MOSI not swapped)
-#    define CONFIG_LCD_ST7789_SPIMODE SPIDEV_MODE1  /* SPI Mode 1: Workaround for BL602 */
-#  else
-#    warning Using SPI Mode 3 for ST7789 on BL602 (MISO/MOSI swapped)
-#    define CONFIG_LCD_ST7789_SPIMODE SPIDEV_MODE3  /* SPI Mode 3: Workaround for BL602 */
-#  endif /* BOARD_LCD_SWAP */
-#else
-#  ifndef CONFIG_LCD_ST7789_SPIMODE
-#    define CONFIG_LCD_ST7789_SPIMODE SPIDEV_MODE0
-#  endif /* CONFIG_LCD_ST7789_SPIMODE */
-#endif   /* CONFIG_BL602_SPI0 */
-```
-
-[(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/drivers/lcd/st7789.c#L42-L66)
-
-## LVGL Demo App
-
-TODO: To change the message in LVGL Demo App, edit `apps/examples/lvgldemo/lv_demos/src/lv_demo_widgets/lv_demo_widgets.c`...
-
-```c
-static void controls_create(lv_obj_t * parent)
-{
-    lv_page_set_scrl_layout(parent, LV_LAYOUT_PRETTY_TOP);
-
-    lv_disp_size_t disp_size = lv_disp_get_size_category(NULL);
-    lv_coord_t grid_w = lv_page_get_width_grid(parent, disp_size <= LV_DISP_SIZE_SMALL ? 1 : 2, 1);
-
-#if LV_DEMO_WIDGETS_SLIDESHOW == 0
-    static const char * btns[] = {"PineDio", "Stack", ""};
-
-    lv_obj_t * m = lv_msgbox_create(lv_scr_act(), NULL);
-    lv_msgbox_add_btns(m, btns);
-    lv_obj_t * btnm = lv_msgbox_get_btnmatrix(m);
-    lv_btnmatrix_set_btn_ctrl(btnm, 1, LV_BTNMATRIX_CTRL_CHECK_STATE);
-#endif
-```
-
-# SX1262 LoRa Transceiver
-
-TODO
-
-# SPI Flash
-
-TODO
-
-# Touch Panel
-
-TODO
-
-# Push Button
-
-TODO
-
-# Accelerometer
-
-TODO
-
-# GPS
-
-TODO
-
-# Output Log
-
-TODO
+TODO: PineDio Stack boots...
 
 ```text
 gpio_pin_register: Registering /dev/gpio0
@@ -593,3 +509,88 @@ st7789_sendcmd: cmd: 0x2c
 st7789_sendcmd: OK
 monitor_cb: 57600 px refreshed in 1110 ms
 ```
+
+# ST7789 Display
+
+TODO
+
+## SPI Mode
+
+BL602 / BL604 talks to ST7789 Display at SPI Mode 1 or 3 ... Depends whether MISO / MOSI are swapped
+
+```c
+#ifdef CONFIG_BL602_SPI0
+#include "../boards/risc-v/bl602/bl602evb/include/board.h"
+#endif  /* CONFIG_BL602_SPI0 */
+
+#ifdef CONFIG_LCD_ST7789
+
+/****************************************************************************
+ * Pre-processor Definitions
+ ****************************************************************************/
+
+/* Verify that all configuration requirements have been met */
+
+#ifdef CONFIG_BL602_SPI0
+#  if defined(BOARD_LCD_SWAP) && BOARD_LCD_SWAP == 0  /* If MISO/MOSI not swapped... */
+#    warning Using SPI Mode 1 for ST7789 on BL602 (MISO/MOSI not swapped)
+#    define CONFIG_LCD_ST7789_SPIMODE SPIDEV_MODE1  /* SPI Mode 1: Workaround for BL602 */
+#  else
+#    warning Using SPI Mode 3 for ST7789 on BL602 (MISO/MOSI swapped)
+#    define CONFIG_LCD_ST7789_SPIMODE SPIDEV_MODE3  /* SPI Mode 3: Workaround for BL602 */
+#  endif /* BOARD_LCD_SWAP */
+#else
+#  ifndef CONFIG_LCD_ST7789_SPIMODE
+#    define CONFIG_LCD_ST7789_SPIMODE SPIDEV_MODE0
+#  endif /* CONFIG_LCD_ST7789_SPIMODE */
+#endif   /* CONFIG_BL602_SPI0 */
+```
+
+[(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/drivers/lcd/st7789.c#L42-L66)
+
+## LVGL Demo App
+
+TODO: To change the message in LVGL Demo App, edit `apps/examples/lvgldemo/lv_demos/src/lv_demo_widgets/lv_demo_widgets.c`...
+
+```c
+static void controls_create(lv_obj_t * parent)
+{
+    lv_page_set_scrl_layout(parent, LV_LAYOUT_PRETTY_TOP);
+
+    lv_disp_size_t disp_size = lv_disp_get_size_category(NULL);
+    lv_coord_t grid_w = lv_page_get_width_grid(parent, disp_size <= LV_DISP_SIZE_SMALL ? 1 : 2, 1);
+
+#if LV_DEMO_WIDGETS_SLIDESHOW == 0
+    static const char * btns[] = {"PineDio", "Stack", ""};
+
+    lv_obj_t * m = lv_msgbox_create(lv_scr_act(), NULL);
+    lv_msgbox_add_btns(m, btns);
+    lv_obj_t * btnm = lv_msgbox_get_btnmatrix(m);
+    lv_btnmatrix_set_btn_ctrl(btnm, 1, LV_BTNMATRIX_CTRL_CHECK_STATE);
+#endif
+```
+
+# SX1262 LoRa Transceiver
+
+TODO
+
+# SPI Flash
+
+TODO
+
+# Touch Panel
+
+TODO
+
+# Push Button
+
+TODO
+
+# Accelerometer
+
+TODO
+
+# GPS
+
+TODO
+
