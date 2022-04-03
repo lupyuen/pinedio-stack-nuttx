@@ -16,6 +16,8 @@ Acording to the PineDio Stack Schematic...
 
 -   [PineDio Stack Schematic (2021-09-15)](pinedio_stack_v1_0-2021_09_15-a.pdf)
 
+-   [PineDio Stack Baseboard Schematic (2021-09-27)](PINEDIO_STACK_BASEBOARD_V1_0-SCH-2021-09-27.pdf)
+
 The SPI Bus is shared by...
 
 -   ST7789 Display Controller
