@@ -288,7 +288,7 @@ static int bl602_spi_cmddata(struct spi_dev_s *dev,
 
 ## Deselect All SPI Devices
 
-TODO: We deselect all SPI Devices at startup...
+At NuttX Startup, we deselect all SPI Devices ... By flipping their Chip Select Pins high...
 
 ```c
 static void bl602_spi_init(struct spi_dev_s *dev)
