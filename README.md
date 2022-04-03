@@ -570,6 +570,10 @@ static void controls_create(lv_obj_t * parent)
 #endif
 ```
 
+## LVGL Test App
+
+TODO: https://github.com/lupyuen/lvgl-test-nuttx
+
 # SX1262 LoRa Transceiver
 
 TODO
