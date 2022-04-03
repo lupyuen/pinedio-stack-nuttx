@@ -344,6 +344,10 @@ static void bl602_spi_init(struct spi_dev_s *dev)
 
 # ST7789 Display
 
+TODO
+
+## SPI Mode
+
 TODO: SPI Mode depends on MISO / MOSI Swap
 
 ```c
@@ -375,6 +379,28 @@ TODO: SPI Mode depends on MISO / MOSI Swap
 ```
 
 [(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/drivers/lcd/st7789.c#L42-L66)
+
+## LVGL Demo App
+
+TODO: To change the message in LVGL Demo App, edit `apps/examples/lvgldemo/lv_demos/src/lv_demo_widgets/lv_demo_widgets.c`...
+
+```c
+static void controls_create(lv_obj_t * parent)
+{
+    lv_page_set_scrl_layout(parent, LV_LAYOUT_PRETTY_TOP);
+
+    lv_disp_size_t disp_size = lv_disp_get_size_category(NULL);
+    lv_coord_t grid_w = lv_page_get_width_grid(parent, disp_size <= LV_DISP_SIZE_SMALL ? 1 : 2, 1);
+
+#if LV_DEMO_WIDGETS_SLIDESHOW == 0
+    static const char * btns[] = {"PineDio", "Stack", ""};
+
+    lv_obj_t * m = lv_msgbox_create(lv_scr_act(), NULL);
+    lv_msgbox_add_btns(m, btns);
+    lv_obj_t * btnm = lv_msgbox_get_btnmatrix(m);
+    lv_btnmatrix_set_btn_ctrl(btnm, 1, LV_BTNMATRIX_CTRL_CHECK_STATE);
+#endif
+```
 
 # SX1262 LoRa Transceiver
 
