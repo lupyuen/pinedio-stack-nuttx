@@ -131,9 +131,17 @@ The columns of the SPI Device Table...
 
 [(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/include/board.h#L36-L41)
 
+Here are the functions for accessing the SPI Device Table...
+
+-   [bl602_spi_get_device](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/src/bl602_bringup.c#L210-L239): Lookup a device in the SPI Device Table
+
+-   [bl602_spi_deselect_devices](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/src/bl602_bringup.c#L178-L208): Deselect all devices in the SPI Device Table
+
+-   [bl602_spi_validate_devices](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/src/bl602_bringup.c#L140-L176): Validate the devices in the SPI Device Table
+
 ## Pin Definitions
 
-TODO
+TODO: Pin Definitions for PineDio Stack
 
 ```c
 /* SPI for PineDio Stack: Chip Select (unused), MOSI, MISO, SCK */
@@ -171,13 +179,7 @@ TODO
 
 ## Select / Deselect SPI Device
 
-TODO
-
-[bl602_spi_get_device](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/src/bl602_bringup.c#L210-L239)
-
-[bl602_spi_deselect_devices](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/src/bl602_bringup.c#L178-L208)
-
-[bl602_spi_validate_devices](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/src/bl602_bringup.c#L140-L176)
+TODO: This is how we select and deselect each SPI Device, by looking up the SPI Device Table...
 
 ```c
 static void bl602_spi_select(struct spi_dev_s *dev, uint32_t devid,
@@ -217,9 +219,11 @@ static void bl602_spi_select(struct spi_dev_s *dev, uint32_t devid,
 
 [(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/arch/risc-v/src/bl602/bl602_spi.c#L439-L471)
 
+`bl602_spi_select` is called after locking the SPI Bus.
+
 ## SPI Command / Data
 
-TODO
+TODO: We flip the ST7789 Data / Command pin depending on MISO / MOSI Swap...
 
 ```c
 #ifdef CONFIG_SPI_CMDDATA
@@ -277,7 +281,7 @@ static int bl602_spi_cmddata(struct spi_dev_s *dev,
 
 ## Deselect All SPI Devices
 
-TODO
+TODO: We deselect all SPI Devices at startup...
 
 ```c
 static void bl602_spi_init(struct spi_dev_s *dev)
@@ -336,13 +340,59 @@ static void bl602_spi_init(struct spi_dev_s *dev)
 
 # ST7789 Display
 
-TODO
+TODO: SPI Mode depends on MISO / MOSI Swap
+
+```c
+#ifdef CONFIG_BL602_SPI0
+#include "../boards/risc-v/bl602/bl602evb/include/board.h"
+#endif  /* CONFIG_BL602_SPI0 */
+
+#ifdef CONFIG_LCD_ST7789
+
+/****************************************************************************
+ * Pre-processor Definitions
+ ****************************************************************************/
+
+/* Verify that all configuration requirements have been met */
+
+#ifdef CONFIG_BL602_SPI0
+#  if defined(BOARD_LCD_SWAP) && BOARD_LCD_SWAP == 0  /* If MISO/MOSI not swapped... */
+#    warning Using SPI Mode 1 for ST7789 on BL602 (MISO/MOSI not swapped)
+#    define CONFIG_LCD_ST7789_SPIMODE SPIDEV_MODE1  /* SPI Mode 1: Workaround for BL602 */
+#  else
+#    warning Using SPI Mode 3 for ST7789 on BL602 (MISO/MOSI swapped)
+#    define CONFIG_LCD_ST7789_SPIMODE SPIDEV_MODE3  /* SPI Mode 3: Workaround for BL602 */
+#  endif /* BOARD_LCD_SWAP */
+#else
+#  ifndef CONFIG_LCD_ST7789_SPIMODE
+#    define CONFIG_LCD_ST7789_SPIMODE SPIDEV_MODE0
+#  endif /* CONFIG_LCD_ST7789_SPIMODE */
+#endif   /* CONFIG_BL602_SPI0 */
+```
+
+[(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/drivers/lcd/st7789.c#L42-L66)
 
 # SX1262 LoRa Transceiver
 
 TODO
 
 # SPI Flash
+
+TODO
+
+# Touch Panel
+
+TODO
+
+# Push Button
+
+TODO
+
+# Accelerometer
+
+TODO
+
+# GPS
 
 TODO
 
