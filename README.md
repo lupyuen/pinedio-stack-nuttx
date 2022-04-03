@@ -228,7 +228,9 @@ static void bl602_spi_select(struct spi_dev_s *dev, uint32_t devid,
 
 ## SPI Command / Data
 
-TODO: We flip the ST7789 Data / Command pin depending on MISO / MOSI Swap...
+NuttX RTOS uses MISO as the ST7789 Data / Command Pin ... But ST7789 is wired "backwards" on PineDio Stack BL604! We use MOSI as the ST7789 Data / Command Pin instead.
+
+Here how we flip the ST7789 Data / Command pin depending on MISO / MOSI Swap...
 
 ```c
 #ifdef CONFIG_SPI_CMDDATA
