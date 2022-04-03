@@ -183,9 +183,10 @@ The SPI Device Table above refers to the following Pin Definitions...
 
 ## Select / Deselect SPI Device
 
-This is how we select and deselect each SPI Device, by looking up the SPI Device Table...
+BL602 NuttX SPI Driver looks up the SPI Device Table to 1️⃣ Swap MISO and MOSI Pins 2️⃣ Flip the Chip Select Pins. This is how we select and deselect each SPI Device...
 
 ```c
+//  Enable/disable the SPI chip select
 static void bl602_spi_select(struct spi_dev_s *dev, uint32_t devid,
                              bool selected)
 {
