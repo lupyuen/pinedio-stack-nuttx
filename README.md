@@ -12,6 +12,10 @@ Source code is here...
 
 -   [lupyuen/incubator-nuttx-apps (pinedio branch)](https://github.com/lupyuen/incubator-nuttx-apps/tree/pinedio)
 
+NuttX Build Config for PineDio Stack BL604...
+
+-   [.config](https://gist.github.com/lupyuen/5f597a4308a5a6091fdbe1fda8f0b1bc)
+
 # Shared SPI Bus
 
 Acording to the PineDio Stack Schematic...
