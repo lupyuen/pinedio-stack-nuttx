@@ -353,7 +353,9 @@ static void bl602_spi_init(struct spi_dev_s *dev)
 
 ## Test Shared SPI Bus
 
-TODO: PineDio Stack boots...
+Will ST7789 Display play nice with LoRa SX1262 on PineDio Stack BL604? Yep SX1262 works OK on the Shared SPI Bus!
+
+PineDio Stack boots and renders a Pink Screen...
 
 ```text
 gpio_pin_register: Registering /dev/gpio0
@@ -385,7 +387,11 @@ st7789_sendcmd: cmd: 0x2c
 st7789_sendcmd: OK
 board_lcd_getdev: SPI port 0 bound to LCD 0
 st7789_getplaneinfo: planeno: 0 bpp: 16
+```
 
+We run the `spi_test2` app to test SX1262...
+
+```text
 NuttShell (NSH) NuttX-10.2.0-RC0
 nsh>
 nsh> ?
@@ -418,6 +424,13 @@ gpout_write: Writing 1
 Read Register 8: received
   a2 a2 a2 a2 80
 SX1262 Register 8 is 0x80
+```
+
+SX1262 returns Register Value 0x80, which is correct!
+
+Then we run the LVGL Demo App...
+
+```text
 spi_test_driver_close:
 nsh> lvgldemo
 fbdev_init: Failed to open /dev/fb0: 2
@@ -516,9 +529,9 @@ st7789_sendcmd: OK
 monitor_cb: 57600 px refreshed in 1110 ms
 ```
 
-# ST7789 Display
+Which renders the LVGL Demo Screen on ST7789 correctly!
 
-TODO
+# ST7789 Display
 
 ## SPI Mode
 
@@ -584,7 +597,9 @@ https://github.com/lupyuen/lvgltest-nuttx
 
 # SX1262 LoRa Transceiver
 
-LoRaWAN works OK on Shared SPI Bus yay! Remember to disable all Info Logging because it affects the LoRaWAN timers...
+LoRaWAN works OK on Shared SPI Bus yay! 
+
+Remember to disable all Info Logging because it affects the LoRaWAN Timers.
 
 (Internal Temperature Sensor on ADC works OK too)
 
