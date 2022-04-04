@@ -28,6 +28,8 @@ cd nuttx
 make
 ```
 
+[(See the Build Log)](https://gist.github.com/lupyuen/3ff5b3a5b6c160c76d56e33c35745ef7)
+
 # Shared SPI Bus
 
 Acording to the PineDio Stack Schematic...
