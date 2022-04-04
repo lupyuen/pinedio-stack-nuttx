@@ -589,9 +589,74 @@ CONFIG_LCD_ST7789_FREQUENCY=4000000
 
 [(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/configs/pinedio/defconfig#L542)
 
+## LVGL Test App
+
+LVGL Test App is here...
+
+-   [lupyuen/lvgltest-nuttx](https://github.com/lupyuen/lvgltest-nuttx)
+
+To run the app, enter this at the NuttX Shell...
+
+```bash
+lvgltest
+```
+
+Here's the code that renders the screen...
+
+```c
+//  Create the LVGL Widgets that will be rendered on the display
+static void create_widgets(void)
+{
+  //  Get the Active Screen
+  lv_obj_t *screen = lv_scr_act();
+
+  //  Create a Label Widget
+  lv_obj_t *label = lv_label_create(screen, NULL);
+
+  //  Wrap long lines in the label text
+  lv_label_set_long_mode(label, LV_LABEL_LONG_BREAK);
+
+  //  Interpret color codes in the label text
+  lv_label_set_recolor(label, true);
+
+  //  Center align the label text
+  lv_label_set_align(label, LV_LABEL_ALIGN_CENTER);
+
+  //  Set the label text and colors
+  lv_label_set_text(
+    label, 
+    "#ff0000 HELLO# "    //  Red Text
+    "#00ff00 PINEDIO# "  //  Green Text
+    "#0000ff STACK!# "   //  Blue Text
+  );
+
+  //  Set the label width
+  lv_obj_set_width(label, 200);
+
+  //  Align the label to the center of the screen, shift 30 pixels up
+  lv_obj_align(label, NULL, LV_ALIGN_CENTER, 0, -30);
+
+#ifdef CONFIG_EXAMPLES_LVGLTEST_MESSAGEBOX
+  //  Create a Message Box Widget
+  lv_obj_t *msgbox = lv_msgbox_create(screen, NULL);
+
+  //  Set the Message Box Text
+  lv_msgbox_set_text(msgbox, "Hello PineDio Stack!");
+
+  //  Define the Message Box Buttons
+  static const char *btns[] = {"Cancel", "OK", ""};
+
+  //  Add the buttons to the Message Box
+  lv_msgbox_add_btns(msgbox, btns);
+#endif  //  CONFIG_EXAMPLES_LVGLTEST_MESSAGEBOX
+}
+```
+
+[(Source)](https://github.com/lupyuen/lvgltest-nuttx/blob/main/lvgltest.c#L104-L159)
+
 ## LVGL Demo App
 
-TODO: To change the message in LVGL Demo App, edit `apps/examples/lvgldemo/lv_demos/src/lv_demo_widgets/lv_demo_widgets.c`...
+To change the message in LVGL Demo App, edit `apps/examples/lvgldemo/lv_demos/src/lv_demo_widgets/lv_demo_widgets.c`...
 
 ```c
 static void controls_create(lv_obj_t * parent)
@@ -610,12 +675,6 @@ static void controls_create(lv_obj_t * parent)
     lv_btnmatrix_set_btn_ctrl(btnm, 1, LV_BTNMATRIX_CTRL_CHECK_STATE);
 #endif
 ```
-
-## LVGL Test App
-
-TODO: Now creating a simple LVGL Test App...
-
-https://github.com/lupyuen/lvgltest-nuttx
 
 # SX1262 LoRa Transceiver
 
