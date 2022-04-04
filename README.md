@@ -579,6 +579,16 @@ BL602 / BL604 talks to ST7789 Display at SPI Mode 1 or 3 ... Depends whether MIS
 
 [(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/drivers/lcd/st7789.c#L42-L66)
 
+## SPI Frequency
+
+ST7789 Display runs OK at SPI Frequency 4 MHz. Maybe we can go higher?
+
+```text
+CONFIG_LCD_ST7789_FREQUENCY=4000000
+```
+
+[(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/configs/pinedio/defconfig#L542)
+
 ## LVGL Demo App
 
 TODO: To change the message in LVGL Demo App, edit `apps/examples/lvgldemo/lv_demos/src/lv_demo_widgets/lv_demo_widgets.c`...
