@@ -16,6 +16,8 @@ NuttX Build Config for PineDio Stack BL604...
 
 -   [.config](https://gist.github.com/lupyuen/5f597a4308a5a6091fdbe1fda8f0b1bc)
 
+TODO: Create NuttX Build Config for PineDio Stack BL604 [(like bl602evb:nsh)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/configs/nsh/defconfig)
+
 # Shared SPI Bus
 
 Acording to the PineDio Stack Schematic...
