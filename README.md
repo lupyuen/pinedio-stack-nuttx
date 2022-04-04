@@ -597,14 +597,15 @@ https://github.com/lupyuen/lvgltest-nuttx
 
 # SX1262 LoRa Transceiver
 
-LoRaWAN works OK on Shared SPI Bus yay! 
+## Test LoRaWAN
 
-Remember to disable all Info Logging because it affects the LoRaWAN Timers.
+LoRaWAN works OK on Shared SPI Bus yay! PineDio Stack connects to LoRaWAN Gateway (ChirpStack) and sends data packets.
 
 (Internal Temperature Sensor on ADC works OK too)
 
+Remember to disable all Info Logging because it affects the LoRaWAN Timers.
+
 ```text
-▒
 NuttShell (NSH) NuttX-10.2.0-RC0
 nsh> lorawan_test
 init_entropy_pool
