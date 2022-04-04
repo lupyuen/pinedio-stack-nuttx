@@ -14,9 +14,19 @@ Source code is here...
 
 NuttX Build Config for PineDio Stack BL604...
 
--   [.config](https://gist.github.com/lupyuen/5f597a4308a5a6091fdbe1fda8f0b1bc)
+-   [.config](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/configs/pinedio/defconfig)
 
-TODO: Create NuttX Build Config for PineDio Stack BL604 [(like bl602evb:nsh)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/configs/nsh/defconfig)
+To download, configure and build NuttX for PineDio Stack BL604...
+
+```bash
+mkdir nuttx
+cd nuttx
+git clone --recursive --branch pinedio https://github.com/lupyuen/incubator-nuttx nuttx
+git clone --recursive --branch pinedio https://github.com/lupyuen/incubator-nuttx-apps apps
+cd nuttx
+./tools/configure.sh bl602evb:pinedio
+make
+```
 
 # Shared SPI Bus
 
