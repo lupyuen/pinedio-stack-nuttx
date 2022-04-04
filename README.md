@@ -1,4 +1,4 @@
-![Apache NuttX RTOS, ST7789 Driver and LVGL Graphics Library all run OK on Pine64's PineDio Stack BL604!](https://lupyuen.github.io/images/pinedio2-dark2.jpg)
+![Apache NuttX RTOS, ST7789 Driver and LVGL Graphics Library all run OK on Pine64's PineDio Stack BL604!](https://lupyuen.github.io/images/pinedio2-title.jpg)
 
 # PineDio Stack BL604 RISC-V Board on Apache NuttX RTOS
 
@@ -590,6 +590,8 @@ CONFIG_LCD_ST7789_FREQUENCY=4000000
 [(Source)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/boards/risc-v/bl602/bl602evb/configs/pinedio/defconfig#L542)
 
 ## LVGL Test App
+
+![LVGL Test App](https://lupyuen.github.io/images/pinedio2-title.jpg)
 
 LVGL Test App is here...
 
