@@ -636,7 +636,40 @@ static void create_widgets(void)
   //  Align the label to the center of the screen, shift 30 pixels up
   lv_obj_align(label, NULL, LV_ALIGN_CENTER, 0, -30);
 
-#ifdef CONFIG_EXAMPLES_LVGLTEST_MESSAGEBOX
+#ifdef CONFIG_USE_LV_CANVAS  //  LVGL Canvas Demo
+  //  Create the Canvas
+  lv_obj_t *canvas = lv_canvas_create(screen, NULL);
+
+  //  Set the Canvas Buffer (Warning: Might take a lot of RAM!)
+  static lv_color_t cbuf[LV_CANVAS_BUF_SIZE_TRUE_COLOR(CANVAS_WIDTH, CANVAS_HEIGHT)];
+  lv_canvas_set_buffer(canvas, cbuf, CANVAS_WIDTH, CANVAS_HEIGHT, LV_IMG_CF_TRUE_COLOR);
+
+  //  Align the canvas to the center of the screen, shift 50 pixels down
+  lv_obj_align(canvas, NULL, LV_ALIGN_CENTER, 0, 50);
+
+  //  Fill the canvas with white
+  lv_canvas_fill_bg(canvas, LV_COLOR_WHITE, LV_OPA_TRANSP);
+
+  //  Create a Rounded Rectangle
+  lv_draw_rect_dsc_t rect_dsc;
+  lv_draw_rect_dsc_init(&rect_dsc);
+  rect_dsc.radius = 10;            //  Corner Radius
+  rect_dsc.bg_opa = LV_OPA_COVER;  //  Opacity: Opaque
+  rect_dsc.bg_grad_dir   = LV_GRAD_DIR_HOR;  //  Gradient Direction: Horizontal
+  rect_dsc.bg_color      = LV_COLOR_BLUE;    //  From Blue
+  rect_dsc.bg_grad_color = LV_COLOR_GREEN;   //  To Green
+  rect_dsc.border_width  = 2;  //  Border Width
+  rect_dsc.border_opa    = LV_OPA_90;        //  Border Opacity: 90%
+  rect_dsc.border_color  = LV_COLOR_SILVER;  //  Border Color
+  rect_dsc.shadow_width  = 5;  //  Shadow Width
+  rect_dsc.shadow_ofs_x  = 5;  //  Shadow Offset X
+  rect_dsc.shadow_ofs_y  = 5;  //  Shadow Offset Y
+
+  //  Draw the Rounded Rectangle to the canvas
+  lv_canvas_draw_rect(canvas, 0, 0, 95, 95, &rect_dsc);
+#endif  //  CONFIG_USE_LV_CANVAS
+
+#ifdef CONFIG_EXAMPLES_LVGLTEST_MESSAGEBOX  //  LVGL Message Box Demo
   //  Create a Message Box Widget
   lv_obj_t *msgbox = lv_msgbox_create(screen, NULL);
 
@@ -653,6 +686,12 @@ static void create_widgets(void)
 ```
 
 [(Source)](https://github.com/lupyuen/lvgltest-nuttx/blob/main/lvgltest.c#L104-L159)
+
+To render our own text and graphics, edit this source file and change the code above...
+
+```text
+nuttx/apps/examples/lvgltest/lvgltest.c
+```
 
 ## LVGL Demo App
 
