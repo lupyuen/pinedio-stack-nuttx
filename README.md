@@ -697,6 +697,14 @@ nuttx/apps/examples/lvgltest/lvgltest.c
 
 ## LVGL Demo App
 
+![LVGL Demo App](https://lupyuen.github.io/images/pinedio2-dark2.jpg)
+
+To run the app, enter this at the NuttX Shell...
+
+```bash
+lvgldemo
+```
+
 To change the message in LVGL Demo App, edit `apps/examples/lvgldemo/lv_demos/src/lv_demo_widgets/lv_demo_widgets.c`...
 
 ```c
