@@ -727,6 +727,16 @@ static void controls_create(lv_obj_t * parent)
 
 # SX1262 LoRa Transceiver
 
+## Test LoRa
+
+To test LoRa on PineDio Stack, edit [`sx1262_test_main.c`](https://github.com/lupyuen/sx1262_test/blob/main/sx1262_test_main.c) at...
+
+```text
+apps/examples/sx1262_test/sx1262_test_main.c
+```
+
+And update the LoRa Parameters.
+
 ## Test LoRaWAN
 
 LoRaWAN works OK on Shared SPI Bus yay! PineDio Stack connects to LoRaWAN Gateway (ChirpStack) and sends data packets.
@@ -1168,6 +1178,12 @@ RadioOnDioIrq
 RadioIrqProcess
 UplinkProcess
 ```
+
+Remember to set the LoRaWAN Parameters...
+
+-   [Device EUI, Join EUI and App Key](https://lupyuen.github.io/articles/lorawan3#device-eui-join-eui-and-app-key)
+
+-   [LoRaWAN Frequency](https://lupyuen.github.io/articles/lorawan3#lorawan-frequency)
 
 # SPI Flash
 
