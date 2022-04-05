@@ -737,6 +737,8 @@ apps/examples/sx1262_test/sx1262_test_main.c
 
 And update the LoRa Parameters.
 
+[(More details here)](https://lupyuen.github.io/articles/sx1262#lora-parameters)
+
 ## Test LoRaWAN
 
 LoRaWAN works OK on Shared SPI Bus yay! PineDio Stack connects to LoRaWAN Gateway (ChirpStack) and sends data packets.
