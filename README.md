@@ -2,7 +2,7 @@
 
 # PineDio Stack BL604 RISC-V Board on Apache NuttX RTOS
 
-[__Follow the updates on Twitter__](https://twitter.com/MisterTechBlog/status/1510406086326513668)
+-   ["PineDio Stack BL604 runs Apache NuttX RTOS"](https://lupyuen.github.io/articles/pinedio2)
 
 Apache NuttX RTOS, ST7789 Driver and LVGL Graphics Library all run OK on Pine64's PineDio Stack BL604!
 
@@ -29,6 +29,8 @@ make
 ```
 
 [(See the Build Log)](https://gist.github.com/lupyuen/3ff5b3a5b6c160c76d56e33c35745ef7)
+
+[__Follow the updates on Twitter__](https://twitter.com/MisterTechBlog/status/1510406086326513668)
 
 # Shared SPI Bus
 
@@ -735,9 +737,9 @@ To test LoRa on PineDio Stack, edit [`sx1262_test_main.c`](https://github.com/lu
 apps/examples/sx1262_test/sx1262_test_main.c
 ```
 
-And update the LoRa Parameters.
+And update the LoRa Parameters...
 
-[(More details here)](https://lupyuen.github.io/articles/sx1262#lora-parameters)
+-   ["LoRa Parameters"](https://lupyuen.github.io/articles/sx1262#lora-parameters)
 
 ## Test LoRaWAN
 
@@ -749,9 +751,9 @@ Remember to disable all Info Logging because it affects the LoRaWAN Timers.
 
 Here's how we set the LoRaWAN Parameters...
 
--   [Device EUI, Join EUI and App Key](https://lupyuen.github.io/articles/lorawan3#device-eui-join-eui-and-app-key)
+-   ["Device EUI, Join EUI and App Key"](https://lupyuen.github.io/articles/lorawan3#device-eui-join-eui-and-app-key)
 
--   [LoRaWAN Frequency](https://lupyuen.github.io/articles/lorawan3#lorawan-frequency)
+-   ["LoRaWAN Frequency"](https://lupyuen.github.io/articles/lorawan3#lorawan-frequency)
 
 ```text
 NuttShell (NSH) NuttX-10.2.0-RC0
