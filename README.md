@@ -2,11 +2,43 @@
 
 # PineDio Stack BL604 RISC-V Board on Apache NuttX RTOS
 
+Read the article...
+
 -   ["PineDio Stack BL604 runs Apache NuttX RTOS"](https://lupyuen.github.io/articles/pinedio2)
 
-Apache NuttX RTOS, ST7789 Driver and LVGL Graphics Library all run OK on Pine64's PineDio Stack BL604!
+__PineDio Stack BL604__ is Pine64's newest microcontroller board, based on [__Bouffalo Lab's BL604__](https://lupyuen.github.io/articles/pinecone) RISC-V + WiFi + Bluetooth LE SoC.
 
-Source code is here...
+(Available any day now!)
+
+PineDio Stack is packed __chock-full of features__...
+
+-   ST7789 __Colour LCD Display__
+
+    (240 x 240 pixels)
+
+-   CST816S __Touch Panel__
+
+    (Connected on I2C)
+
+-   Semtech SX1262 __LoRa Transceiver__
+
+    (Works with LoRaWAN)
+
+-   AT6558 __GPS / GNSS Receiver__
+
+-   SGM40561 __Power Management Unit__
+
+-   __Heart Rate Sensor, Accelerometer, Compass, Vibrator__
+
+-   __SPI Flash, JTAG Debugging Port, Push Button__
+
+-   __2.4 GHz WiFi, Bluetooth LE__
+
+    (Thanks to BL604)
+
+Which makes it an incredible gadget for __IoT Education__!
+
+Source code for Apache NuttX RTOS for PineDio Stack is here...
 
 -   [lupyuen/incubator-nuttx (pinedio branch)](https://github.com/lupyuen/incubator-nuttx/tree/pinedio)
 
