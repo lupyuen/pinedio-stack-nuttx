@@ -692,7 +692,7 @@ static void create_widgets(void)
 To render our own text and graphics, edit this source file and change the code above...
 
 ```text
-nuttx/apps/examples/lvgltest/lvgltest.c
+apps/examples/lvgltest/lvgltest.c
 ```
 
 ## LVGL Demo App
@@ -746,6 +746,12 @@ LoRaWAN works OK on Shared SPI Bus yay! PineDio Stack connects to LoRaWAN Gatewa
 (Internal Temperature Sensor on ADC works OK too)
 
 Remember to disable all Info Logging because it affects the LoRaWAN Timers.
+
+Here's how we set the LoRaWAN Parameters...
+
+-   [Device EUI, Join EUI and App Key](https://lupyuen.github.io/articles/lorawan3#device-eui-join-eui-and-app-key)
+
+-   [LoRaWAN Frequency](https://lupyuen.github.io/articles/lorawan3#lorawan-frequency)
 
 ```text
 NuttShell (NSH) NuttX-10.2.0-RC0
@@ -1181,29 +1187,32 @@ RadioIrqProcess
 UplinkProcess
 ```
 
-Remember to set the LoRaWAN Parameters...
+# Touch Panel
 
--   [Device EUI, Join EUI and App Key](https://lupyuen.github.io/articles/lorawan3#device-eui-join-eui-and-app-key)
+TODO: See [pinedio-stack-selftest/drivers/cst816s.c](https://codeberg.org/JF002/pinedio-stack-selftest/src/branch/master/drivers/cst816s.c)
 
--   [LoRaWAN Frequency](https://lupyuen.github.io/articles/lorawan3#lorawan-frequency)
+# Push Button
+
+TODO: See [pinedio-stack-selftest/pushbutton.c](https://codeberg.org/JF002/pinedio-stack-selftest/src/branch/master/pushbutton.c)
+
+# Accelerometer
+
+TODO: See [pinedio-stack-selftest/accelerometer.c](https://codeberg.org/JF002/pinedio-stack-selftest/src/branch/master/accelerometer.c)
+
+# Power Management
+
+TODO: See [pinedio-stack-selftest/battery.c](https://codeberg.org/JF002/pinedio-stack-selftest/src/branch/master/battery.c)
 
 # SPI Flash
 
 TODO
 
-# Touch Panel
-
-TODO
-
-# Push Button
-
-TODO
-
-# Accelerometer
-
-TODO
-
 # GPS
 
-TODO
+TODO: NuttX has a GPS Demo App...
 
+[apps/examples/gps/gps_main.c](https://github.com/lupyuen/incubator-nuttx-apps/blob/pinedio/examples/gps/gps_main.c)
+
+And a GPS Parser...
+
+[apps/gpsutils](https://github.com/lupyuen/incubator-nuttx-apps/tree/pinedio/gpsutils)
