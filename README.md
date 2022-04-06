@@ -721,7 +721,7 @@ static void create_widgets(void)
 }
 ```
 
-[(Source)](https://github.com/lupyuen/lvgltest-nuttx/blob/main/lvgltest.c#L104-L159)
+[(Source)](https://github.com/lupyuen/lvgltest-nuttx/blob/main/lvgltest.c#L110-L198)
 
 To render our own text and graphics, edit this source file and change the code above...
 
