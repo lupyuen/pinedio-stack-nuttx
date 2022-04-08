@@ -577,6 +577,30 @@ monitor_cb: 57600 px refreshed in 1110 ms
 
 Which renders the LVGL Demo Screen on ST7789 correctly!
 
+## SX1262 Chip Select
+
+There's a potential Race Condition if we use the SX1262 Driver concurrently with the ST7789 Driver...
+
+-   During LoRa Transmission, SX1262 Driver calls `ioctl()` to flip SX1262 Chip Select to Low
+
+    [(See this)](https://github.com/lupyuen/lora-sx1262/blob/lorawan/src/sx126x-nuttx.c#L806-L832)
+
+-   SX1262 Driver calls SPI Test Driver `/dev/spitest0`, which locks (`SPI_LOCK`) and selects (`SPI_SELECT`) the SPI Bus (with SPI Device ID 0)
+
+    [(See this)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/drivers/rf/spi_test_driver.c#L161-L208)
+
+-   Note that the calls to `ioctl()` and `SPI_LOCK / SPI_SELECT` are NOT Atomic
+
+-   If the ST7789 Driver is active between the calls to `ioctl()` and `SPI_LOCK / SPI_SELECT`, both SX1262 Chip Select and ST7789 Chip Select will be flipped to Low
+
+-   This might transmit garbage to SX1262
+
+To solve this problem, we will register a new SPI Test Driver `/dev/spitest1` with SPI Device ID 1.
+
+The LoRa Driver will then access `/dev/spitest1`, which will `SPI_LOCK` and `SPI_SELECT` the SPI Bus (with SPI Device ID 1).
+
+Since the SPI Device ID is 1, `SPI_SELECT` will flip the SX1262 Chip Select to Low.
+
 # ST7789 Display
 
 ## SPI Mode
@@ -1220,30 +1244,6 @@ RadioOnDioIrq
 RadioIrqProcess
 UplinkProcess
 ```
-
-## SX1262 Chip Select
-
-There's a potential Race Condition if we use the SX1262 Driver concurrently with the ST7789 Driver...
-
--   During LoRa Transmission, SX1262 Driver calls `ioctl()` to flip SX1262 Chip Select to Low
-
-    [(See this)](https://github.com/lupyuen/lora-sx1262/blob/lorawan/src/sx126x-nuttx.c#L806-L832)
-
--   SX1262 Driver calls SPI Test Driver `/dev/spitest0`, which locks (`SPI_LOCK`) and selects (`SPI_SELECT`) the SPI Bus (with SPI Device ID 0)
-
-    [(See this)](https://github.com/lupyuen/incubator-nuttx/blob/pinedio/drivers/rf/spi_test_driver.c#L161-L208)
-
--   Note that the calls to `ioctl()` and `SPI_LOCK / SPI_SELECT` are NOT Atomic
-
--   If the ST7789 Driver is active between the calls to `ioctl()` and `SPI_LOCK / SPI_SELECT`, both SX1262 Chip Select and ST7789 Chip Select will be flipped to Low
-
--   This might transmit garbage to SX1262
-
-To solve this problem, we will register a new SPI Test Driver `/dev/spitest1` with SPI Device ID 1.
-
-The LoRa Driver will then access `/dev/spitest1`, which will `SPI_LOCK` and `SPI_SELECT` the SPI Bus (with SPI Device ID 1).
-
-Since the SPI Device ID is 1, `SPI_SELECT` will flip the SX1262 Chip Select to Low.
 
 # Touch Panel
 
